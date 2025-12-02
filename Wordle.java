@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
 
 public class Wordle {
 
@@ -21,13 +22,33 @@ public class Wordle {
         return result;
     }
 
+    public String getAnswer() {
+        String answer = "";
+        ArrayList<String> wordsList = new ArrayList<String>();
+
+        try {
+            Scanner input = new Scanner(new File("words"));
+            while (input.hasNextLine()) {
+                wordsList.add(input.nextLine() );
+            }
+            input.close();
+        } catch (Exception e) {
+            System.out.println("Error reading words file.");
+        }
+        
+        int index = (int)(Math.random() * wordsList.size());;
+        answer = wordsList.get(index);
+        System.out.println(answer);
+        return answer;
+    }
+
     public void start() {
-        String answer = "apple";
+        String answer = getAnswer();
         Scanner input = new Scanner(System.in);
         int numOfGuesses = 1;
 
         while (true) {
-            if (numOfGuesses > 5) {
+            if (numOfGuesses > 6) {
                 System.out.println("You lose. The answer was " + answer + ".");
                 break;
             }
