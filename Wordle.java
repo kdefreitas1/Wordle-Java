@@ -27,7 +27,7 @@ public class Wordle {
         ArrayList<String> wordsList = new ArrayList<String>();
 
         try {
-            Scanner input = new Scanner(new File("words"));
+            Scanner input = new Scanner(new File("words.txt"));
             while (input.hasNextLine()) {
                 wordsList.add(input.nextLine() );
             }
@@ -35,7 +35,7 @@ public class Wordle {
         } catch (Exception e) {
             System.out.println("Error reading words file.");
         }
-        
+
         int index = (int)(Math.random() * wordsList.size());;
         answer = wordsList.get(index);
         System.out.println(answer);
@@ -78,5 +78,10 @@ public class Wordle {
         }
 
         input.close();
+    }
+
+    public static void main(String[] args) {
+        Wordle game = new Wordle();
+        game.start();
     }
 }
