@@ -7,16 +7,24 @@ public class Wordle {
     public ArrayList<String> checkGuess(String guess, String answer) {
         ArrayList<String> result = new ArrayList<String>();
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < guess.length(); i++) {
             result.add("grey");
         }
 
         for (int i = 0; i < guess.length(); i++) {
             if (guess.substring(i, i+1).equals(answer.substring(i, i+1))) {
                 result.set(i, "green");
-            } else if (answer.contains(guess.substring(i, i+1))) {
-                result.set(i, "yellow");
+                answer = answer.substring(i,i+1).replaceFirst(guess.substring(i,i+1), "*");
             }
+            System.out.println(answer + " 2nd for loop");
+        }
+
+        for (int i = 0; i < guess.length(); i++) {
+            if (answer.contains(guess.substring(i, i+1))) {
+                result.set(i, "yellow");
+                answer = answer.replaceFirst(guess.substring(i,i+1), "*");
+            }
+            System.out.println(answer);
         }
 
         return result;
@@ -35,11 +43,10 @@ public class Wordle {
         } catch (Exception e) {
             System.out.println("Error reading words file.");
         }
-
-        int index = (int)(Math.random() * wordsList.size());;
+        int index = (int)(Math.random() * wordsList.size());
         answer = wordsList.get(index);
         System.out.println(answer);
-        return answer;
+        return "rigor";
     }
 
     public void start() {
