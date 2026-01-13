@@ -12,19 +12,18 @@ public class Wordle {
         }
 
         for (int i = 0; i < guess.length(); i++) {
-            if (guess.substring(i, i+1).equals(answer.substring(i, i+1))) {
+            if (guess.charAt(i) == answer.charAt(i)) {
                 result.set(i, "green");
-                answer = answer.substring(i,i+1).replaceFirst(guess.substring(i,i+1), "*");
             }
-            System.out.println(answer + " 2nd for loop");
         }
 
         for (int i = 0; i < guess.length(); i++) {
-            if (answer.contains(guess.substring(i, i+1))) {
-                result.set(i, "yellow");
-                answer = answer.replaceFirst(guess.substring(i,i+1), "*");
+            for (int j = 0; j < guess.length(); j++) {
+                if (guess.charAt(i) == answer.charAt(j) && !result.get(j).equals("green")) {
+                    result.set(i, "yellow");
+                    answer = answer.replaceFirst(guess.substring(i,i+1), "*");
+                }
             }
-            System.out.println(answer);
         }
 
         return result;
@@ -46,7 +45,7 @@ public class Wordle {
         int index = (int)(Math.random() * wordsList.size());
         answer = wordsList.get(index);
         System.out.println(answer);
-        return "rigor";
+        return answer;
     }
 
     public void start() {
